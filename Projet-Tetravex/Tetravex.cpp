@@ -23,31 +23,33 @@ Tetravex::Tetravex(string nameFile)
         }
         else
         {
-            cout << "coucou" << endl;
+            // cout << "coucou" << endl;
+            for (int i = 0; i < line.length(); i++)
+            {
+                if (line[i] != ' ')
+                {
+                    lineData.push_back(line[i] - '0');
+                }
+            }
+            GameCard *card = new GameCard(lineData);
+            // cout << card->GetBottom() << endl;
+            // cout << card->GetLeft() << endl;
+            // cout << card->GetRight() << endl;
+            // cout << card->GetTop() << endl;
+            this->listCard.push_back(*card);
         }
-        // this->data.push_back(lineData);
+        // for (int i = 0; i < lineData.size(); i++)
+        // {
+        //     cout << lineData[i] << ' ';
+        // }
+        // cout << "next line" << endl;
     }
     ReadFile.close();
-    // for (int i = 0; i < this->data.size(); i++)
+    // for (int i = 0; i < this->listCard.size(); i++)
     // {
-    //     for (int j = 0; j < this->data[i].size(); j++)
-    //     {
-    //         cout << this->data[i][j] << " ";
-    //     }
-    //     cout << endl;
+    //     cout << this->listCard[i].GetBottom() << ' '
+    //          << this->listCard[i].GetLeft() << ' '
+    //          << this->listCard[i].GetRight() << ' '
+    //          << this->listCard[i].GetTop() << endl;
     // }
-    // this->gameTable = GameTable(this->data[0]);
-    // for (int i = 1; i < this->data.size(); i++)
-    // {
-    //     GameCard gameCard = GameCard(this->data[i]);
-    //     this->listCard.push_back(gameCard);
-    // }
-    // for (int i = 1; i < this->data.size(); i++)
-    // {
-    //     cout << "left: " << this->listCard[i]->getLeft() << " ";
-    //     cout << "right: " << this->listCard[i]->getRight() << " ";
-    //     cout << "top: " << this->listCard[i]->getTop() << " ";
-    //     cout << "bottom: " << this->listCard[i]->getBottom() << " ";
-    // }
-    // cout << endl;
 }

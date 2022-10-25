@@ -9,6 +9,7 @@ private:
     int bottom;
 
 public:
+    GameCard();
     GameCard(vector<int> data);
     int GetLeft();
     int GetTop();

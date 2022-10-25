@@ -1,5 +1,7 @@
 #include "GameCard.h"
 
+GameCard::GameCard() {}
+
 GameCard::GameCard(vector<int> data)
 {
     this->left = data[0];
