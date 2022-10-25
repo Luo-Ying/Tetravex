@@ -11,7 +11,6 @@ Tetravex::Tetravex(string nameFile)
         vector<int> lineData;
         if (numLine == 1)
         {
-            // cout << "nique?" << endl;
             for (int i = 0; i < line.length(); i++)
             {
                 if (line[i] != ' ')
@@ -23,7 +22,6 @@ Tetravex::Tetravex(string nameFile)
         }
         else
         {
-            // cout << "coucou" << endl;
             for (int i = 0; i < line.length(); i++)
             {
                 if (line[i] != ' ')
@@ -32,24 +30,16 @@ Tetravex::Tetravex(string nameFile)
                 }
             }
             GameCard *card = new GameCard(lineData);
-            // cout << card->GetBottom() << endl;
-            // cout << card->GetLeft() << endl;
-            // cout << card->GetRight() << endl;
-            // cout << card->GetTop() << endl;
             this->listCard.push_back(*card);
         }
-        // for (int i = 0; i < lineData.size(); i++)
-        // {
-        //     cout << lineData[i] << ' ';
-        // }
-        // cout << "next line" << endl;
     }
     ReadFile.close();
-    // for (int i = 0; i < this->listCard.size(); i++)
+    // for (int i = 0; i < line.length(); i++)
     // {
-    //     cout << this->listCard[i].GetBottom() << ' '
-    //          << this->listCard[i].GetLeft() << ' '
-    //          << this->listCard[i].GetRight() << ' '
-    //          << this->listCard[i].GetTop() << endl;
+    //     cout << this->listCard[i].getBottom() << ' '
+    //          << this->listCard[i].getLeft() << ' '
+    //          << this->listCard[i].getRight() << ' '
+    //          << this->listCard[i].getTop() << ' '
+    //          << "is used? " << this->listCard[i].getIsUsed() << endl;
     // }
 }

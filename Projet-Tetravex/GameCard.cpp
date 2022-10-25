@@ -8,24 +8,35 @@ GameCard::GameCard(vector<int> data)
     this->top = data[1];
     this->right = data[2];
     this->bottom = data[3];
+    this->isUsed = false;
 }
 
-int GameCard::GetLeft()
+int GameCard::getLeft()
 {
     return this->left;
 }
 
-int GameCard::GetRight()
+int GameCard::getRight()
 {
     return this->right;
 }
 
-int GameCard::GetTop()
+int GameCard::getTop()
 {
     return this->top;
 }
 
-int GameCard::GetBottom()
+int GameCard::getBottom()
 {
     return this->bottom;
+}
+
+void GameCard::setIsUsed(bool isUsed)
+{
+    this->isUsed = isUsed;
+}
+
+bool GameCard::getIsUsed()
+{
+    return this->isUsed;
 }

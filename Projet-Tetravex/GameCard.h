@@ -7,12 +7,15 @@ private:
     int top;
     int right;
     int bottom;
+    bool isUsed;
 
 public:
     GameCard();
     GameCard(vector<int> data);
-    int GetLeft();
-    int GetTop();
-    int GetRight();
-    int GetBottom();
+    void setIsUsed(bool isUsed);
+    bool getIsUsed();
+    int getLeft();
+    int getTop();
+    int getRight();
+    int getBottom();
 };
