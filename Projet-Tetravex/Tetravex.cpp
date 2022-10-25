@@ -34,12 +34,13 @@ Tetravex::Tetravex(string nameFile)
         }
     }
     ReadFile.close();
-    // for (int i = 0; i < line.length(); i++)
+    // for (int i = 0; i < this->gameTable.getTable().size(); i++)
     // {
-    //     cout << this->listCard[i].getBottom() << ' '
-    //          << this->listCard[i].getLeft() << ' '
-    //          << this->listCard[i].getRight() << ' '
-    //          << this->listCard[i].getTop() << ' '
-    //          << "is used? " << this->listCard[i].getIsUsed() << endl;
+    //     for (int j = 0; j < this->gameTable.getTable()[i].size(); j++)
+    //     {
+    //         cout << this->gameTable.getTable()[i][j] << ' ';
+    //     }
+    //     cout << endl;
     // }
+    // cout << this->gameTable.isCaseAvaileble(0, 0) << endl;
 }
