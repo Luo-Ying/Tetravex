@@ -25,5 +25,5 @@ int GameCard::GetTop()
 
 int GameCard::GetBottom()
 {
-    return bottom();
+    return this->bottom;
 }

@@ -9,5 +9,6 @@ private:
     vector<vector<GameCard *>> table;
 
 public:
-    GameTable(vector<int> data);
+    GameTable();
+    GameTable(int width, int height);
 };

@@ -1,2 +1,2 @@
-project: Tetravex.h Tetravex.cpp main.cpp GameTable.h GameTable.cpp GameCard.h GameCard.cpp
-	g++ main.cpp Tetravex.cpp GameTable.cpp GameCard.cpp -o main && ./main
+project: Tetravex.cpp main.cpp GameTable.cpp GameCard.cpp
+	g++ main.cpp Tetravex.cpp GameTable.cpp -o main && ./main
