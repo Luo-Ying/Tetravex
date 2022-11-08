@@ -5,11 +5,11 @@ class Tetravex
 {
 private:
     GameTable gameTable = *new GameTable();
-    vector<GameCard> listCard;
+    vector<GameCard *> listCard;
 
 public:
     Tetravex(string fileName);
-    void putCard(GameCard *card, int row, int column);
+    void putCard(int itemCard, int row, int column);
     GameTable getGameTable();
-    vector<GameCard> getListCard();
+    vector<GameCard *> getListCard();
 };

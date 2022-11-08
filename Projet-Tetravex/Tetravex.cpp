@@ -30,15 +30,16 @@ Tetravex::Tetravex(string fileName)
                 }
             }
             GameCard *card = new GameCard(lineData);
-            this->listCard.push_back(*card);
+            this->listCard.push_back(card);
         }
     }
     ReadFile.close();
 }
 
-void Tetravex::putCard(GameCard *card, int row, int column)
+void Tetravex::putCard(int itemCard, int row, int column)
 {
-    this->gameTable.putCard(card, row, column);
+    this->gameTable.putCard(this->listCard[itemCard], row, column);
+    this->listCard[itemCard]->setIsUsed(true);
 }
 
 GameTable Tetravex::getGameTable()
@@ -46,7 +47,7 @@ GameTable Tetravex::getGameTable()
     return this->gameTable;
 }
 
-vector<GameCard> Tetravex::getListCard()
+vector<GameCard *> Tetravex::getListCard()
 {
     return this->listCard;
 }
