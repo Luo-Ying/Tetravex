@@ -3,7 +3,8 @@
 int main()
 {
     Tetravex tetravex = Tetravex("data.txt");
-    tetravex.putCard(5, 2, 1);
+    cout << "Put succès? " << tetravex.putCard(5, 2, 1) << endl;
+    cout << "Put succès? " << tetravex.putCard(6, 0, 1) << endl;
     for (int i = 0; i < tetravex.getGameTable().getTable().size(); i++)
     {
         for (int j = 0; j < tetravex.getGameTable().getTable()[i].size(); j++)

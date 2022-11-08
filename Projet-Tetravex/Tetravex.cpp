@@ -36,10 +36,27 @@ Tetravex::Tetravex(string fileName)
     ReadFile.close();
 }
 
-void Tetravex::putCard(int itemCard, int row, int column)
+bool Tetravex::putCard(int itemCard, int row, int column)
 {
-    this->gameTable.putCard(this->listCard[itemCard], row, column);
-    this->listCard[itemCard]->setIsUsed(true);
+    if (this->listCard[itemCard]->getIsUsed())
+    {
+        cout << "card used! ";
+        return false;
+    }
+    else
+    {
+        if (this->gameTable.isCaseAvaileble(row, column))
+        {
+            this->gameTable.putCard(this->listCard[itemCard], row, column);
+            this->listCard[itemCard]->setIsUsed(true);
+            return true;
+        }
+        else
+        {
+            cout << "position not available! ";
+            return false;
+        }
+    }
 }
 
 GameTable Tetravex::getGameTable()

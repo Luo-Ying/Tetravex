@@ -9,7 +9,7 @@ private:
 
 public:
     Tetravex(string fileName);
-    void putCard(int itemCard, int row, int column);
+    bool putCard(int itemCard, int row, int column);
     GameTable getGameTable();
     vector<GameCard *> getListCard();
 };
