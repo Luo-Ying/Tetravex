@@ -1,6 +1,6 @@
 #include "Tetravex.h"
 
-Tetravex::Tetravex(string nameFile)
+Tetravex::Tetravex(string fileName)
 {
     string line;
     int numLine = 0;
@@ -34,13 +34,19 @@ Tetravex::Tetravex(string nameFile)
         }
     }
     ReadFile.close();
-    // for (int i = 0; i < this->gameTable.getTable().size(); i++)
-    // {
-    //     for (int j = 0; j < this->gameTable.getTable()[i].size(); j++)
-    //     {
-    //         cout << this->gameTable.getTable()[i][j] << ' ';
-    //     }
-    //     cout << endl;
-    // }
-    // cout << this->gameTable.isCaseAvaileble(0, 0) << endl;
+}
+
+void Tetravex::putCard(GameCard *card, int row, int column)
+{
+    this->gameTable.putCard(card, row, column);
+}
+
+GameTable Tetravex::getGameTable()
+{
+    return this->gameTable;
+}
+
+vector<GameCard> Tetravex::getListCard()
+{
+    return this->listCard;
 }

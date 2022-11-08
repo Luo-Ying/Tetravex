@@ -8,5 +8,8 @@ private:
     vector<GameCard> listCard;
 
 public:
-    Tetravex(string nameFile);
+    Tetravex(string fileName);
+    void putCard(GameCard *card, int row, int column);
+    GameTable getGameTable();
+    vector<GameCard> getListCard();
 };

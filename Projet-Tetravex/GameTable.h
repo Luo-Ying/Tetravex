@@ -11,6 +11,7 @@ private:
 public:
     GameTable();
     GameTable(int width, int height);
+    void putCard(GameCard *card, int row, int column);
     vector<vector<GameCard *>> getTable();
     bool isCaseAvaileble(int row, int col);
 };

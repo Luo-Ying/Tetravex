@@ -11,15 +11,20 @@ GameTable::GameTable(int width, int height)
     {
         this->table[i].resize(width);
     }
-    for (int i = 0; i < this->table.size(); i++)
-    {
-        for (int j = 0; j < this->table[i].size(); j++)
-        {
-            cout << this->table[i][j] << ' ';
-        }
-        cout << endl;
-    }
-    cout << (this->table[0][0] == 0) << endl;
+    // for (int i = 0; i < this->table.size(); i++)
+    // {
+    //     for (int j = 0; j < this->table[i].size(); j++)
+    //     {
+    //         cout << this->table[i][j] << ' ';
+    //     }
+    //     cout << endl;
+    // }
+    // cout << (this->table[0][0] == 0) << endl;
+}
+
+void GameTable::putCard(GameCard *card, int row, int column)
+{
+    this->table.at(row).at(column) = card;
 }
 
 vector<vector<GameCard *>> GameTable::getTable()
