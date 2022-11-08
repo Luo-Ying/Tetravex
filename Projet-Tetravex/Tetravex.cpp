@@ -47,9 +47,19 @@ bool Tetravex::putCard(int itemCard, int row, int column)
     {
         if (this->gameTable.isCaseAvaileble(row, column))
         {
-            this->gameTable.putCard(this->listCard[itemCard], row, column);
-            this->listCard[itemCard]->setIsUsed(true);
-            return true;
+            // cout << "coucou1" << endl;
+            if (this->gameTable.isMatchWithTop(this->listCard[itemCard], row, column))
+            {
+                // cout << "coucou" << endl;
+                this->gameTable.putCard(this->listCard[itemCard], row, column);
+                this->listCard[itemCard]->setIsUsed(true);
+                return true;
+            }
+            else
+            {
+                cout << "top of card is not matched!";
+                return false;
+            }
         }
         else
         {

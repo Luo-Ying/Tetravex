@@ -27,3 +27,30 @@ bool GameTable::isCaseAvaileble(int row, int col)
 {
     return (this->table[row][col] == 0);
 }
+
+bool GameTable::isMatchWithTop(GameCard *card, int row, int column)
+{
+    if (row == 0)
+    {
+        return true;
+    }
+    else
+    {
+        if (isCaseAvaileble(row - 1, column))
+        {
+            return true;
+        }
+        else
+        {
+            if (card->getTop() == this->table[row - 1][column]->getBottom())
+            {
+                // cout << "okok" << endl;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+    }
+}

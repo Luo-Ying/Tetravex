@@ -14,4 +14,7 @@ public:
     void putCard(GameCard *card, int row, int column);
     vector<vector<GameCard *>> getTable();
     bool isCaseAvaileble(int row, int col);
+    bool isMatchWithTop(GameCard *card, int row, int column);
 };
+
+// TODO: verifier les card autour existés si le card qui vient d'être posé est valider pour la place.
