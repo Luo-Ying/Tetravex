@@ -61,22 +61,22 @@ bool Tetravex::putCard(int itemCard, int row, int column)
             }
             else
             {
-                if (!this->gameTable.isMatchWithTop(this->listCard[itemCard], row, column))
-                {
-                    cout << "top of card is not matched! ";
-                }
-                if (!this->gameTable.isMatchWithBottom(this->listCard[itemCard], row, column))
-                {
-                    cout << "bottom of card is not matched! ";
-                }
-                if (!this->gameTable.isMatchWithLeft(this->listCard[itemCard], row, column))
-                {
-                    cout << "left of card is not matched! ";
-                }
-                if (!this->gameTable.isMatchWithRight(this->listCard[itemCard], row, column))
-                {
-                    cout << "right of card is not matched! ";
-                }
+                // if (!this->gameTable.isMatchWithTop(this->listCard[itemCard], row, column))
+                // {
+                //     cout << "top of card is not matched! ";
+                // }
+                // if (!this->gameTable.isMatchWithBottom(this->listCard[itemCard], row, column))
+                // {
+                //     cout << "bottom of card is not matched! ";
+                // }
+                // if (!this->gameTable.isMatchWithLeft(this->listCard[itemCard], row, column))
+                // {
+                //     cout << "left of card is not matched! ";
+                // }
+                // if (!this->gameTable.isMatchWithRight(this->listCard[itemCard], row, column))
+                // {
+                //     cout << "right of card is not matched! ";
+                // }
                 return false;
             }
         }
@@ -102,4 +102,18 @@ GameTable Tetravex::getGameTable()
 vector<GameCard *> Tetravex::getListCard()
 {
     return this->listCard;
+}
+
+void Tetravex::resetGameTable()
+{
+    for (int i = 0; i < this->gameTable.getTable().size(); i++)
+    {
+        for (int j = 0; j < this->gameTable.getTable()[i].size(); j++)
+        {
+            if (this->gameTable.getTable()[i][j] != 0)
+            {
+                this->removeCard(i, j);
+            }
+        }
+    }
 }

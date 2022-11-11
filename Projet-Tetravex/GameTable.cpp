@@ -139,3 +139,15 @@ bool GameTable::isMatchWithRight(GameCard *card, int row, int column)
         }
     }
 }
+
+void GameTable::displayTable()
+{
+    for (int i = 0; i < this->table.size(); i++)
+    {
+        for (int j = 0; j < this->table[i].size(); j++)
+        {
+            cout << this->table[i][j] << ' ';
+        }
+        cout << endl;
+    }
+}

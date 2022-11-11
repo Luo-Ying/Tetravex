@@ -13,4 +13,5 @@ public:
     void removeCard(int row, int column);
     GameTable getGameTable();
     vector<GameCard *> getListCard();
+    void resetGameTable();
 };

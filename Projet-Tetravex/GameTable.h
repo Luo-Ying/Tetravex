@@ -19,6 +19,7 @@ public:
     bool isMatchWithBottom(GameCard *card, int row, int column);
     bool isMatchWithLeft(GameCard *card, int row, int column);
     bool isMatchWithRight(GameCard *card, int row, int column);
+    void displayTable();
 };
 
 // TODO: verifier les card autour existés si le card qui vient d'être posé est valider pour la place.

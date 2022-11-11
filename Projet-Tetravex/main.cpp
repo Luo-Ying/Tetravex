@@ -3,16 +3,12 @@
 int main()
 {
     Tetravex tetravex = Tetravex("data.txt");
+
     cout << "Put succès? " << tetravex.putCard(1, 1, 1) << endl;
     cout << "Put succès? " << tetravex.putCard(2, 2, 1) << endl;
-    for (int i = 0; i < tetravex.getGameTable().getTable().size(); i++)
-    {
-        for (int j = 0; j < tetravex.getGameTable().getTable()[i].size(); j++)
-        {
-            cout << tetravex.getGameTable().getTable()[i][j] << ' ';
-        }
-        cout << endl;
-    }
+
+    tetravex.getGameTable().displayTable();
+
     cout << &tetravex.getGameTable().getTable()[2][1] << endl;
 
     cout << "card 1 left:" << tetravex.getGameTable().getTable()[1][1]->getLeft() << endl;
@@ -32,15 +28,16 @@ int main()
 
     cout << "après remove -------- " << endl;
 
-    for (int i = 0; i < tetravex.getGameTable().getTable().size(); i++)
-    {
-        for (int j = 0; j < tetravex.getGameTable().getTable()[i].size(); j++)
-        {
-            cout << tetravex.getGameTable().getTable()[i][j] << ' ';
-        }
-        cout << endl;
-    }
+    tetravex.getGameTable().displayTable();
 
     cout << "état de card 1: isused = " << tetravex.getListCard()[1]->getIsUsed() << endl;
     cout << "état de card 2: isused = " << tetravex.getListCard()[2]->getIsUsed() << endl;
+
+    tetravex.resetGameTable();
+
+    cout << "après reset table -------- " << endl;
+
+    tetravex.getGameTable().displayTable();
+
+    cout << "état de card 1: isused = " << tetravex.getListCard()[1]->getIsUsed() << endl;
 }
