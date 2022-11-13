@@ -11,6 +11,8 @@ private:
 public:
     GameTable();
     GameTable(int width, int height);
+    int getWidth();
+    int getHeight();
     void putCard(GameCard *card, int row, int column);
     void removeCard(int row, int column);
     vector<vector<GameCard *>> getTable();
@@ -21,5 +23,3 @@ public:
     bool isMatchWithRight(GameCard *card, int row, int column);
     void displayTable();
 };
-
-// TODO: verifier les card autour existés si le card qui vient d'être posé est valider pour la place.

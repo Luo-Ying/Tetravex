@@ -13,6 +13,16 @@ GameTable::GameTable(int width, int height)
     }
 }
 
+int GameTable::getWidth()
+{
+    return this->width;
+}
+
+int GameTable::getHeight()
+{
+    return this->height;
+}
+
 void GameTable::putCard(GameCard *card, int row, int column)
 {
     this->table.at(row).at(column) = card;
@@ -146,7 +156,11 @@ void GameTable::displayTable()
     {
         for (int j = 0; j < this->table[i].size(); j++)
         {
-            cout << this->table[i][j] << ' ';
+            // cout << this->table[i][j] << ' ';
+            cout << this->table[i][j]->getLeft() << ' '
+                 << this->table[i][j]->getTop() << ' '
+                 << this->table[i][j]->getRight() << ' '
+                 << this->table[i][j]->getBottom() << ";  ";
         }
         cout << endl;
     }

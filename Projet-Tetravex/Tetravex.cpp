@@ -40,7 +40,7 @@ bool Tetravex::putCard(int itemCard, int row, int column)
 {
     if (this->listCard[itemCard]->getIsUsed())
     {
-        cout << "card used! ";
+        // cout << "card used! " << endl;
         return false;
     }
     else
@@ -55,6 +55,12 @@ bool Tetravex::putCard(int itemCard, int row, int column)
                 this->gameTable.isMatchWithRight(this->listCard[itemCard], row, column))
             {
                 // cout << "coucou" << endl;
+                // cout << "card: " << endl;
+                // cout << "left -> " << this->listCard[itemCard]->getLeft();
+                // cout << " top -> " << this->listCard[itemCard]->getTop();
+                // cout << " right -> " << this->listCard[itemCard]->getRight();
+                // cout << " bottom -> " << this->listCard[itemCard]->getBottom() << endl;
+
                 this->gameTable.putCard(this->listCard[itemCard], row, column);
                 this->listCard[itemCard]->setIsUsed(true);
                 return true;
@@ -63,19 +69,19 @@ bool Tetravex::putCard(int itemCard, int row, int column)
             {
                 // if (!this->gameTable.isMatchWithTop(this->listCard[itemCard], row, column))
                 // {
-                //     cout << "top of card is not matched! ";
+                //     cout << "top of card is not matched! " << endl;
                 // }
                 // if (!this->gameTable.isMatchWithBottom(this->listCard[itemCard], row, column))
                 // {
-                //     cout << "bottom of card is not matched! ";
+                //     cout << "bottom of card is not matched! " << endl;
                 // }
                 // if (!this->gameTable.isMatchWithLeft(this->listCard[itemCard], row, column))
                 // {
-                //     cout << "left of card is not matched! ";
+                //     cout << "left of card is not matched! " << endl;
                 // }
                 // if (!this->gameTable.isMatchWithRight(this->listCard[itemCard], row, column))
                 // {
-                //     cout << "right of card is not matched! ";
+                //     cout << "right of card is not matched! " << endl;
                 // }
                 return false;
             }
