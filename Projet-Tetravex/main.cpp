@@ -3,49 +3,6 @@
 
 Tetravex tetravex = Tetravex("data.txt");
 
-bool playGame(int row, int col)
-{
-    for (int i = 0; i < tetravex.getListCard().size(); i++)
-    {
-        if (tetravex.putCard(i, row, col))
-        {
-            if (col < tetravex.getGameTable().getWidth() - 1)
-            {
-                bool isPlaced = playGame(row, col + 1);
-                if (!isPlaced)
-                {
-                    tetravex.removeCard(row, col);
-                }
-                else
-                {
-                    return true;
-                }
-            }
-            else
-            {
-                if (row < tetravex.getGameTable().getHeight() - 1)
-                {
-                    bool isPlaced = playGame(row + 1, 0);
-                    if (!isPlaced)
-                    {
-                        tetravex.removeCard(row, col);
-                    }
-                    else
-                    {
-                        return true;
-                    }
-                }
-                else
-                {
-                    // cout << "row ??????????????????????????????" << row << endl;
-                    return true;
-                }
-            }
-        }
-    }
-    return false;
-}
-
 void gameTest()
 {
     cout << "Put succès? " << tetravex.putCard(1, 1, 1) << endl;
@@ -84,6 +41,49 @@ void gameTest()
     tetravex.getGameTable().displayTable();
 
     cout << "état de card 1: isused = " << tetravex.getListCard()[1]->getIsUsed() << endl;
+}
+
+bool playGame(int row, int col)
+{
+    for (int i = 0; i < int(tetravex.getListCard().size()); i++)
+    {
+        if (tetravex.putCard(i, row, col))
+        {
+            if (col < tetravex.getGameTable().getWidth() - 1)
+            {
+                bool isPlaced = playGame(row, col + 1);
+                if (!isPlaced)
+                {
+                    tetravex.removeCard(row, col);
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            else
+            {
+                if (row < tetravex.getGameTable().getHeight() - 1)
+                {
+                    bool isPlaced = playGame(row + 1, 0);
+                    if (!isPlaced)
+                    {
+                        tetravex.removeCard(row, col);
+                    }
+                    else
+                    {
+                        return true;
+                    }
+                }
+                else
+                {
+                    // cout << "row ??????????????????????????????" << row << endl;
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
 }
 
 int main()

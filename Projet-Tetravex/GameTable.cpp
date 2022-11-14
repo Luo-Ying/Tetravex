@@ -7,7 +7,7 @@ GameTable::GameTable(int width, int height)
     this->width = width;
     this->height = height;
     this->table.resize(height);
-    for (int i = 0; i < this->table.size(); i++)
+    for (int i = 0; i < int(this->table.size()); i++)
     {
         this->table[i].resize(width);
     }
@@ -74,7 +74,7 @@ bool GameTable::isMatchWithTop(GameCard *card, int row, int column)
 
 bool GameTable::isMatchWithBottom(GameCard *card, int row, int column)
 {
-    if (row == this->table.size() - 1)
+    if (row == int(this->table.size()) - 1)
     {
         return true;
     }
@@ -126,7 +126,7 @@ bool GameTable::isMatchWithLeft(GameCard *card, int row, int column)
 
 bool GameTable::isMatchWithRight(GameCard *card, int row, int column)
 {
-    if (column == this->table[0].size() - 1)
+    if (column == int(this->table[0].size()) - 1)
     {
         return true;
     }
@@ -152,9 +152,9 @@ bool GameTable::isMatchWithRight(GameCard *card, int row, int column)
 
 void GameTable::displayTable()
 {
-    for (int i = 0; i < this->table.size(); i++)
+    for (int i = 0; i < int(this->table.size()); i++)
     {
-        for (int j = 0; j < this->table[i].size(); j++)
+        for (int j = 0; j < int(this->table[i].size()); j++)
         {
             // cout << this->table[i][j] << ' ';
             cout << this->table[i][j]->getLeft() << ' '
