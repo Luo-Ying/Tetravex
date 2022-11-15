@@ -45,7 +45,7 @@ bool GameTable::isCaseAvaileble(int row, int col)
 
 /**
  * The functions following works only when the condition isCaseAvailable is true
-*/
+ */
 bool GameTable::isMatchWithTop(GameCard *card, int row, int column)
 {
     if (row == 0)

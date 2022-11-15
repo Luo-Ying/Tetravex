@@ -46,20 +46,37 @@ bool Tetravex::putCard(int itemCard, int row, int column)
     {
         if (this->gameTable.isCaseAvaileble(row, column))
         {
-            if (
-                this->gameTable.isMatchWithTop(this->listCard[itemCard], row, column) &&
-                this->gameTable.isMatchWithBottom(this->listCard[itemCard], row, column) &&
-                this->gameTable.isMatchWithLeft(this->listCard[itemCard], row, column) &&
-                this->gameTable.isMatchWithRight(this->listCard[itemCard], row, column))
+            // if (
+            //     this->gameTable.isMatchWithTop(this->listCard[itemCard], row, column) &&
+            //     this->gameTable.isMatchWithBottom(this->listCard[itemCard], row, column) &&
+            //     this->gameTable.isMatchWithLeft(this->listCard[itemCard], row, column) &&
+            //     this->gameTable.isMatchWithRight(this->listCard[itemCard], row, column))
+            if (!this->gameTable.isMatchWithTop(this->listCard[itemCard], row, column))
+            {
+                return false;
+            }
+            else if (!this->gameTable.isMatchWithBottom(this->listCard[itemCard], row, column))
+            {
+                return false;
+            }
+            else if (!this->gameTable.isMatchWithLeft(this->listCard[itemCard], row, column))
+            {
+                return false;
+            }
+            else if (!this->gameTable.isMatchWithRight(this->listCard[itemCard], row, column))
+            {
+                return false;
+            }
+            else
             {
                 this->gameTable.putCard(this->listCard[itemCard], row, column);
                 this->listCard[itemCard]->setIsUsed(true);
                 return true;
             }
-            else
-            {
-                return false;
-            }
+            // else
+            // {
+            //     return false;
+            // }
         }
         else
         {

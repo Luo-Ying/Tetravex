@@ -1,7 +1,9 @@
 #include "Tetravex.h"
-#include <queue>
+// #include <queue>
 
 Tetravex tetravex = Tetravex("data.txt");
+
+vector<GameCard *> cardsRest;
 
 void gameTest()
 {
@@ -45,16 +47,19 @@ void gameTest()
 
 bool playGame(int row, int col)
 {
-    for (int i = 0; i < int(tetravex.getListCard().size()); i++)
+    for (int i = 0; i < int(cardsRest.size()); i++)
     {
         if (tetravex.putCard(i, row, col))
         {
+            GameCard *cardRemoved = cardsRest[i];
+            // cardsRest.erase(cardsRest.begin() + i);
             if (col < tetravex.getGameTable().getWidth() - 1)
             {
                 bool isPlaced = playGame(row, col + 1);
                 if (!isPlaced)
                 {
                     tetravex.removeCard(row, col);
+                    // cardsRest.push_back(cardRemoved);
                 }
                 else
                 {
@@ -69,6 +74,7 @@ bool playGame(int row, int col)
                     if (!isPlaced)
                     {
                         tetravex.removeCard(row, col);
+                        // cardsRest.push_back(cardRemoved);
                     }
                     else
                     {
@@ -90,6 +96,16 @@ int main()
 {
     // gameTest();
     auto start = high_resolution_clock::now();
+
+    for (int i = 0; i < int(tetravex.getListCard().size()); i++)
+    {
+        cardsRest.push_back(tetravex.getListCard()[i]);
+    }
+
+    // cout << cardsRest[0] << endl;
+
+    // swap(begin(cardsRest) + 1, end(cardsRest) - 1);
+    // cardsRest.erase()
 
     if (playGame(0, 0))
     {
