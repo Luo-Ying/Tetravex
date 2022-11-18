@@ -5,10 +5,12 @@ Tetravex tetravex = Tetravex("data.txt");
 
 vector<GameCard *> cardsRest;
 
+queue<GameCard *> cardsRestQueue;
+
 void gameTest()
 {
-    cout << "Put succès? " << tetravex.putCard(1, 1, 1) << endl;
-    cout << "Put succès? " << tetravex.putCard(2, 2, 1) << endl;
+    cout << "Put succès? " << tetravex.putCard(cardsRest[1], 1, 1) << endl;
+    cout << "Put succès? " << tetravex.putCard(cardsRest[2], 2, 1) << endl;
 
     tetravex.getGameTable().displayTable();
 
@@ -49,9 +51,9 @@ bool playGame(int row, int col)
 {
     for (int i = 0; i < int(cardsRest.size()); i++)
     {
-        if (tetravex.putCard(i, row, col))
+        if (tetravex.putCard(cardsRest[i], row, col))
         {
-            GameCard *cardRemoved = cardsRest[i];
+            // GameCard *cardRemoved = cardsRest[i];
             // cardsRest.erase(cardsRest.begin() + i);
             if (col < tetravex.getGameTable().getWidth() - 1)
             {
@@ -96,6 +98,11 @@ int main()
 {
     // gameTest();
     auto start = high_resolution_clock::now();
+
+    for (int i = 0; i < int(tetravex.getListCard().size()); i++)
+    {
+        cardsRest.push_back(tetravex.getListCard()[i]);
+    }
 
     for (int i = 0; i < int(tetravex.getListCard().size()); i++)
     {
