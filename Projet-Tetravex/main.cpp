@@ -3,9 +3,7 @@
 
 Tetravex tetravex = Tetravex("data.txt");
 
-vector<GameCard *> cardsRest;
-
-queue<GameCard *> cardsRestQueue;
+deque<GameCard *> cardsRest;
 
 void gameTest()
 {
@@ -101,24 +99,24 @@ int main()
 
     for (int i = 0; i < int(tetravex.getListCard().size()); i++)
     {
-        cardsRest.push_back(tetravex.getListCard()[i]);
+        cardsRest.push_front(tetravex.getListCard()[i]);
     }
-
-    for (int i = 0; i < int(tetravex.getListCard().size()); i++)
-    {
-        cardsRest.push_back(tetravex.getListCard()[i]);
-    }
-
-    // cout << cardsRest[0] << endl;
-
-    // swap(begin(cardsRest) + 1, end(cardsRest) - 1);
-    // cardsRest.erase()
 
     if (playGame(0, 0))
     {
         cout << "Table result: " << endl;
         tetravex.getGameTable().displayTable();
     }
+
+    // cout << cardsRest[0] << endl;
+    // cout << cardsRest[1] << endl;
+
+    // GameCard *card = cardsRest[0];
+    // cardsRest[0] = cardsRest[1];
+    // cardsRest[1] = card;
+
+    // cout << cardsRest[0] << endl;
+    // cout << cardsRest[1] << endl;
 
     auto stop = high_resolution_clock::now();
 
