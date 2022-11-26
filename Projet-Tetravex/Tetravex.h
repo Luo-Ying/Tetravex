@@ -8,7 +8,7 @@ private:
     vector<GameCard *> listCard;
 
 public:
-    Tetravex(string fileName);
+    Tetravex(vector<vector<int>> data);
     bool putCard(GameCard *card, int row, int column);
     void removeCard(int row, int column);
     GameTable getGameTable();

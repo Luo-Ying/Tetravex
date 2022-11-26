@@ -4,29 +4,65 @@
 
 // deque<GameCard *> cards;
 
-bool playGame(int row, int col, deque<GameCard> cards, Tetravex tetravex)
+bool *isFinished = new bool;
+
+vector<vector<int>> readFile()
 {
-    for (int i = 0; i < int(cards.size()); i++)
+    vector<vector<int>> data;
+    int choix;
+    string filename;
+    string line;
+    cout << "Entrez votre choix pour la taille de data: " << endl;
+    cout << "1 - 5x5" << endl;
+    cout << "2 - 6x6" << endl;
+    cout << "3 - 7x7" << endl;
+    cout << "4 - 8x8" << endl;
+    cin >> choix;
+    if (choix == 1)
     {
-        if (tetravex.putCard(&cards[i], row, col))
+        filename = "data_5x5.txt";
+    }
+    else if (choix == 2)
+    {
+        filename = "data_6x6.txt";
+    }
+    else if (choix == 3)
+    {
+        filename = "data_7x7.txt";
+    }
+    else if (choix == 4)
+    {
+        filename = "data_8x8.txt";
+    }
+    ifstream ReadFile(filename);
+    while (getline(ReadFile, line))
+    {
+        vector<int> lineData;
+        for (int i = 0; i < int(line.length()); i++)
         {
-            if (col < tetravex.getGameTable().getWidth() - 1)
+            if (line[i] != ' ')
             {
-                bool isPlaced = playGame(row, col + 1, cards, tetravex);
-                if (!isPlaced)
-                {
-                    tetravex.removeCard(row, col);
-                }
-                else
-                {
-                    return true;
-                }
+                lineData.push_back(line[i] - '0');
             }
-            else
+        }
+        data.push_back(lineData);
+    }
+    ReadFile.close();
+    return data;
+}
+
+bool playGame(int row, int col, vector<GameCard> cards, Tetravex tetravex)
+{
+    // cout << *isFinished << endl;
+    if (!*isFinished)
+    {
+        for (int i = 0; i < int(cards.size()); i++)
+        {
+            if (tetravex.putCard(&cards[i], row, col))
             {
-                if (row < tetravex.getGameTable().getHeight() - 1)
+                if (col < tetravex.getGameTable().getWidth() - 1)
                 {
-                    bool isPlaced = playGame(row + 1, 0, cards, tetravex);
+                    bool isPlaced = playGame(row, col + 1, cards, tetravex);
                     if (!isPlaced)
                     {
                         tetravex.removeCard(row, col);
@@ -38,67 +74,101 @@ bool playGame(int row, int col, deque<GameCard> cards, Tetravex tetravex)
                 }
                 else
                 {
-                    return true;
+                    if (row < tetravex.getGameTable().getHeight() - 1)
+                    {
+                        bool isPlaced = playGame(row + 1, 0, cards, tetravex);
+                        if (!isPlaced)
+                        {
+                            tetravex.removeCard(row, col);
+                        }
+                        else
+                        {
+                            return true;
+                        }
+                    }
+                    else
+                    {
+                        return true;
+                    }
                 }
             }
         }
+        return false;
     }
-    return false;
+    else
+    {
+        return false;
+    }
 }
 
 int main()
 {
+    *isFinished = false;
 
     vector<thread> pool;
     mutex m;
     condition_variable cv;
 
-    auto start = high_resolution_clock::now();
+    vector<vector<int>> data = readFile();
 
-    Tetravex tetravex = Tetravex("data.txt");
-    deque<GameCard> cards;
+    Tetravex tetravex = Tetravex(data);
+    vector<GameCard> cards;
 
     for (int i = 0; i < int(tetravex.getListCard().size()); i++)
     {
-        cards.push_front(*tetravex.getListCard()[i]);
+        cards.push_back(*tetravex.getListCard()[i]);
     }
+
+    string choix;
+    cout << "Voulez-vous démarrer en parallèle ou en séquenciel?" << endl;
+    cout << " s - séquenciel" << endl;
+    cout << " p - parallère" << endl;
+    cin >> choix;
+
+    auto start = high_resolution_clock::now();
 
     for (int i = 0; i < int(cards.size()); i++)
     {
-        // deque<GameCard *> cardsCopy = cards;
-        // Tetravex tetravexCopy = tetravex;
-
-        // pool.push_back(thread([i]()
-        //                       {
-        //                           Tetravex tetravexCopy = Tetravex("data.txt");
-        //                           deque<GameCard> cardsCopy;
-        //                           for (int i = 0; i < int(tetravexCopy.getListCard().size()); i++)
-        //                           {
-        //                               cardsCopy.push_front(*tetravexCopy.getListCard()[i]);
-        //                           }
-        //                           cout << "tour " << i << endl;
-        //                           tetravexCopy.putCard(&cardsCopy[i], 0, 0);
-        //                           playGame(0, 1, cardsCopy, tetravexCopy);
-        //                       }));
-
-        Tetravex tetravexCopy = Tetravex("data.txt");
-        deque<GameCard> cardsCopy;
-        for (int j = 0; j < int(tetravexCopy.getListCard().size()); j++)
+        if (choix == "p")
         {
-            cardsCopy.push_front(*tetravexCopy.getListCard()[j]);
+            pool.push_back(thread([i, data]()
+                                  {
+                                      Tetravex tetravexCopy = Tetravex(data);
+                                      vector<GameCard> cardsCopy;
+                                      for (int i = 0; i < int(tetravexCopy.getListCard().size()); i++)
+                                      {
+                                          cardsCopy.push_back(*tetravexCopy.getListCard()[i]);
+                                      }
+                                      tetravexCopy.putCard(&cardsCopy[i], 0, 0);
+                                      if (playGame(0, 1, cardsCopy, tetravexCopy))
+                                      {
+                                          *isFinished = true;
+                                      }
+                                  }));
         }
-        cout << "tour " << i << endl;
-        tetravexCopy.putCard(&cardsCopy[i], 0, 0);
-        if (!playGame(0, 1, cardsCopy, tetravexCopy))
+        else if (choix == "s")
         {
-            tetravexCopy.removeCard(0, 0);
+            Tetravex tetravexCopy = Tetravex(data);
+            vector<GameCard> cardsCopy;
+            for (int j = 0; j < int(tetravexCopy.getListCard().size()); j++)
+            {
+                cardsCopy.push_back(*tetravexCopy.getListCard()[j]);
+            }
+            tetravexCopy.putCard(&cardsCopy[i], 0, 0);
+            if (!playGame(0, 1, cardsCopy, tetravexCopy))
+            {
+                tetravexCopy.removeCard(0, 0);
+            }
         }
     }
 
-    // for (int i = 0; i < int(pool.size()); i++)
-    // {
-    //     pool[i].join();
-    // }
+    if (choix == "p")
+    {
+        for (int i = 0; i < int(pool.size()); i++)
+        {
+            pool[i].join();
+        }
+    }
 
     auto stop = high_resolution_clock::now();
 

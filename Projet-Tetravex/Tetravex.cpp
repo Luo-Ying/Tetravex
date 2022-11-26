@@ -1,39 +1,12 @@
 #include "Tetravex.h"
 
-Tetravex::Tetravex(string fileName)
+Tetravex::Tetravex(vector<vector<int>> data)
 {
-    string line;
-    int numLine = 0;
-    ifstream ReadFile("data.txt");
-    while (getline(ReadFile, line))
-    {
-        numLine++;
-        vector<int> lineData;
-        if (numLine == 1)
-        {
-            for (int i = 0; i < int(line.length()); i++)
-            {
-                if (line[i] != ' ')
-                {
-                    lineData.push_back(line[i] - '0');
-                }
-            }
-            this->gameTable = *new GameTable(lineData[0], lineData[1]);
-        }
-        else
-        {
-            for (int i = 0; i < int(line.length()); i++)
-            {
-                if (line[i] != ' ')
-                {
-                    lineData.push_back(line[i] - '0');
-                }
-            }
-            GameCard *card = new GameCard(lineData);
-            this->listCard.push_back(card);
-        }
+    this->gameTable = *new GameTable(data[0][0], data[0][1]);
+    for (int i=1; i<int(data.size()); i++){
+        GameCard *card = new GameCard(data[i]);
+        this->listCard.push_back(card);
     }
-    ReadFile.close();
 }
 
 bool Tetravex::putCard(GameCard *card, int row, int column)

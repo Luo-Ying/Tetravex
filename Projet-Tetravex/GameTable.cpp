@@ -26,17 +26,6 @@ int GameTable::getHeight()
 void GameTable::putCard(GameCard *card, int row, int column)
 {
     this->table.at(row).at(column) = card;
-    // if (row == (this->height - 1) / 2 && column == (this->width - 1) / 2)
-    // {
-    //     for (int i = 0; i < int(this->table.size()); i++)
-    //     {
-    //         for (int j = 0; j < int(this->table[i].size()); j++)
-    //         {
-    //             cout << this->table[i][j] << ' ';
-    //         }
-    //         cout << endl;
-    //     }
-    // }
     if (row == this->height - 1 && column == this->width - 1)
     {
         cout << "Table result: " << endl;
