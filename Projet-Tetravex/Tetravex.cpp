@@ -71,7 +71,8 @@ bool Tetravex::putCard(GameCard *card, int row, int column)
         }
         else
         {
-            cout << "position not available! ";
+            cout << "row: " << row << " col: " << column << endl;
+            cout << "position not available! " << endl;
             return false;
         }
     }
