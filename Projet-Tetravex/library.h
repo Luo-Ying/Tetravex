@@ -6,6 +6,7 @@
 #include <chrono>
 #include <deque>
 #include <stack>
+#include <queue>
 #include <thread>
 #include <mutex>
 #include <condition_variable>

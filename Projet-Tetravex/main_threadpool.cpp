@@ -146,91 +146,36 @@ int main()
         cards.push_back(*tetravex.getListCard()[i]);
     }
 
-    string choix;
-    cout << "Voulez-vous démarrer en parallèle ou en séquenciel?" << endl;
-    cout << " s - séquenciel" << endl;
-    cout << " p - parallère" << endl;
-    cin >> choix;
-
-    string choix_thread;
-    if (choix == "p") {
-        cout << "Veuillez choisisr votre façon de faire les threads: " << endl;
-        cout << " tp - en Thread Pool" << endl;
-        cout << " lp - en Loop Parallelism" << endl;
-        cin >> choix_thread;
-    }
-
     int nombre_pool;
-    if (choix_thread == "tp") {
-        cout << "Mettez un nombre de pool que vous voulez couper en : ";
-        cin >> nombre_pool;
-    }
+    cout << "Mettez un nombre de pool que vous voulez couper en : ";
+    cin >> nombre_pool;
+    pushPool(nombre_pool);
 
-
-    if (choix_thread == "tp") {
-        pushPool(nombre_pool);
-    }
+    cout << "resultat en thread pool : " << endl;
 
     auto start = high_resolution_clock::now();
 
     for (int i = 0; i < int(cards.size()); i++)
     {
-        if (choix == "p")
-        {
-            pool.push_back(thread([i, data]()
+        pool.push_back(thread([i, data]()
+                              {
+                                  lock_guard<mutex> lock(m);
+                                  Tetravex tetravexCopy = Tetravex(data);
+                                  vector<GameCard> cardsCopy;
+                                  for (int i = 0; i < int(tetravexCopy.getListCard().size()); i++)
                                   {
-                                      lock_guard<mutex> lock(m);
-                                      Tetravex tetravexCopy = Tetravex(data);
-                                      vector<GameCard> cardsCopy;
-                                      for (int i = 0; i < int(tetravexCopy.getListCard().size()); i++)
-                                      {
-                                          cardsCopy.push_back(*tetravexCopy.getListCard()[i]);
-                                      }
-                                      tetravexCopy.putCard(&cardsCopy[i], 0, 0);
-                                      if (playGame(0, 1, cardsCopy, tetravexCopy))
-                                      {
-                                          *isFinished = true;
-                                      } 
-                                  }));
-        }
-        if (choix_thread == "tp")
-        {
-            cv.notify_one();
-        }
-        else if (choix == "s")
-        {
-            Tetravex tetravexCopy = Tetravex(data);
-            vector<GameCard> cardsCopy;
-            for (int i = 0; i < int(tetravexCopy.getListCard().size()); i++)
-            {
-                cardsCopy.push_back(*tetravexCopy.getListCard()[i]);
-            }
-            tetravexCopy.putCard(&cardsCopy[i], 0, 0);
-            // cout << "card -> " << i << endl;
-            if (!playGame(0, 1, cardsCopy, tetravexCopy))
-            {
-                tetravexCopy.removeCard(0, 0);
-            }
-            else
-            {
-                break;
-            } 
-        }
+                                      cardsCopy.push_back(*tetravexCopy.getListCard()[i]);
+                                  }
+                                  tetravexCopy.putCard(&cardsCopy[i], 0, 0);
+                                  if (playGame(0, 1, cardsCopy, tetravexCopy))
+                                  {
+                                      *isFinished = true;
+                                  }
+                              }));
+        cv.notify_one();
     }
 
-    if (choix_thread == "lp")
-    {
-        for (int i = 0; i < int(pool.size()); i++)
-        {
-            pool[i].join();
-        }
-    }
-
-    if (choix_thread == "tp") {
-        unique_lock<mutex> lk2(m);
-    // cv2.wait(lk2, [&]
-    //          { return lst_task.empty(); });
-    }
+    unique_lock<mutex> lk2(m);
 
     auto stop = high_resolution_clock::now();
 
