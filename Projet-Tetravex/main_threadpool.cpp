@@ -126,6 +126,7 @@ void pushPool(int k)
                         lk.unlock();
                         f();
                         lk.lock();
+                        // cv.notify_one();
                         cv2.notify_one();
                     }
                 }));
@@ -157,31 +158,39 @@ int main()
 
     for (int i = 0; i < int(cards.size()); i++)
     {
-        pool.push_back(thread([i, data]()
-                              {
-                                  lock_guard<mutex> lock(m);
-                                  Tetravex tetravexCopy = Tetravex(data);
-                                  vector<GameCard> cardsCopy;
-                                  for (int i = 0; i < int(tetravexCopy.getListCard().size()); i++)
-                                  {
-                                      cardsCopy.push_back(*tetravexCopy.getListCard()[i]);
-                                  }
-                                  tetravexCopy.putCard(&cardsCopy[i], 0, 0);
-                                  if (playGame(0, 1, cardsCopy, tetravexCopy))
-                                  {
-                                      *isFinished = true;
-                                  }
-                              }));
+        lst_task.push([i, data]()
+                      {
+                          lock_guard<mutex> lock(m);
+                          Tetravex tetravexCopy = Tetravex(data);
+                          vector<GameCard> cardsCopy;
+                          for (int i = 0; i < int(tetravexCopy.getListCard().size()); i++)
+                          {
+                              cardsCopy.push_back(*tetravexCopy.getListCard()[i]);
+                          }
+                          tetravexCopy.putCard(&cardsCopy[i], 0, 0);
+                          if (playGame(0, 1, cardsCopy, tetravexCopy))
+                          {
+                              *isFinished = true;
+                          }
+                      });
         cv.notify_one();
     }
 
     unique_lock<mutex> lk2(m);
+
+    cv2.wait(lk2, [&]
+             { return lst_task.empty(); });
 
     auto stop = high_resolution_clock::now();
 
     auto duration = duration_cast<microseconds>(stop - start);
 
     cout << "Le temps pris par la fonction: " << duration.count() / 1000000 << " secondes" << endl;
+
+    // for (thread &t : pool)
+    // {
+    //     t.join();
+    // }
 
     return 0;
 }
