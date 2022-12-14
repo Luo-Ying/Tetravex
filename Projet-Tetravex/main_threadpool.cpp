@@ -160,7 +160,6 @@ int main()
     {
         lst_task.push([i, data]()
                       {
-                          lock_guard<mutex> lock(m);
                           Tetravex tetravexCopy = Tetravex(data);
                           vector<GameCard> cardsCopy;
                           for (int i = 0; i < int(tetravexCopy.getListCard().size()); i++)

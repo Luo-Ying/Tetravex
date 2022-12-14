@@ -3,7 +3,8 @@
 Tetravex::Tetravex(vector<vector<int>> data)
 {
     this->gameTable = *new GameTable(data[0][0], data[0][1]);
-    for (int i=1; i<int(data.size()); i++){
+    for (int i = 1; i < int(data.size()); i++)
+    {
         GameCard *card = new GameCard(data[i]);
         this->listCard.push_back(card);
     }
