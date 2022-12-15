@@ -1,5 +1,7 @@
 #include "Tetravex.h"
 
+Tetravex::Tetravex() {}
+
 Tetravex::Tetravex(vector<vector<int>> data)
 {
     this->gameTable = *new GameTable(data[0][0], data[0][1]);
@@ -20,28 +22,28 @@ bool Tetravex::putCard(GameCard *card, int row, int column)
     {
         // if (this->gameTable.isCaseAvaileble(row, column))
         // {
-            if (!this->gameTable.isMatchWithTop(card, row, column))
-            {
-                return false;
-            }
-            // else if (!this->gameTable.isMatchWithBottom(card, row, column))
-            // {
-            //     return false;
-            // }
-            if (!this->gameTable.isMatchWithLeft(card, row, column))
-            {
-                return false;
-            }
-            // else if (!this->gameTable.isMatchWithRight(card, row, column))
-            // {
-            //     return false;
-            // }
-            // else
-            // {
-                this->gameTable.putCard(card, row, column);
-                card->setIsUsed(true);
-                return true;
-            // }
+        if (!this->gameTable.isMatchWithTop(card, row, column))
+        {
+            return false;
+        }
+        // else if (!this->gameTable.isMatchWithBottom(card, row, column))
+        // {
+        //     return false;
+        // }
+        if (!this->gameTable.isMatchWithLeft(card, row, column))
+        {
+            return false;
+        }
+        // else if (!this->gameTable.isMatchWithRight(card, row, column))
+        // {
+        //     return false;
+        // }
+        // else
+        // {
+        this->gameTable.putCard(card, row, column);
+        card->setIsUsed(true);
+        return true;
+        // }
         // }
         // else
         // {
@@ -55,7 +57,7 @@ bool Tetravex::putCard(GameCard *card, int row, int column)
 void Tetravex::removeCard(int row, int column)
 {
     this->gameTable.getTable()[row][column]->setIsUsed(false);
-    this->gameTable.removeCard(row, column);
+    // this->gameTable.removeCard(row, column);
 }
 
 GameTable Tetravex::getGameTable()

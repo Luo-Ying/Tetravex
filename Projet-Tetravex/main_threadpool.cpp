@@ -1,9 +1,5 @@
 #include "Tetravex.h"
 
-// Tetravex tetravex = Tetravex("data.txt");
-
-// deque<GameCard *> cards;
-
 queue<function<void()>> lst_task;
 vector<thread> pool;
 mutex m;
@@ -59,8 +55,6 @@ vector<vector<int>> readFile()
 
 bool playGame(int row, int col, vector<GameCard> cards, Tetravex tetravex)
 {
-    // cout << *isFinished << endl;
-    // cout << cards.size() << endl;
     if (!*isFinished)
     {
         for (int i = 0; i < int(cards.size()); i++)
@@ -126,7 +120,6 @@ void pushPool(int k)
                         lk.unlock();
                         f();
                         lk.lock();
-                        // cv.notify_one();
                         cv2.notify_one();
                     }
                 }));
@@ -185,11 +178,6 @@ int main()
     auto duration = duration_cast<microseconds>(stop - start);
 
     cout << "Le temps pris par la fonction: " << duration.count() / 1000000 << " secondes" << endl;
-
-    // for (thread &t : pool)
-    // {
-    //     t.join();
-    // }
 
     return 0;
 }

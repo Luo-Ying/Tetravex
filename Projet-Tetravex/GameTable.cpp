@@ -59,21 +59,21 @@ bool GameTable::isMatchWithTop(GameCard *card, int row, int column)
     }
     else
     {
-        if (isCaseAvaileble(row - 1, column))
+        // if (isCaseAvaileble(row - 1, column))
+        // {
+        //     return true;
+        // }
+        // else
+        // {
+        if (card->getTop() == this->table[row - 1][column]->getBottom())
         {
             return true;
         }
         else
         {
-            if (card->getTop() == this->table[row - 1][column]->getBottom())
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return false;
         }
+        // }
     }
 }
 
@@ -111,21 +111,21 @@ bool GameTable::isMatchWithLeft(GameCard *card, int row, int column)
     }
     else
     {
-        if (isCaseAvaileble(row, column - 1))
+        // if (isCaseAvaileble(row, column - 1))
+        // {
+        //     return true;
+        // }
+        // else
+        // {
+        if (card->getLeft() == this->table[row][column - 1]->getRight())
         {
             return true;
         }
         else
         {
-            if (card->getLeft() == this->table[row][column - 1]->getRight())
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return false;
         }
+        // }
     }
 }
 
@@ -161,11 +161,32 @@ void GameTable::displayTable()
     {
         for (int j = 0; j < int(this->table[i].size()); j++)
         {
+            cout << "+---+ ";
             // cout << this->table[i][j] << ' ';
-            cout << this->table[i][j]->getLeft() << ' '
-                 << this->table[i][j]->getTop() << ' '
-                 << this->table[i][j]->getRight() << ' '
-                 << this->table[i][j]->getBottom() << ";  ";
+            // cout << this->table[i][j]->getLeft() << ' '
+            //      << this->table[i][j]->getTop() << ' '
+            //      << this->table[i][j]->getRight() << ' '
+            //      << this->table[i][j]->getBottom() << ";  ";
+        }
+        cout << endl;
+        for (int j = 0; j < int(this->table[i].size()); j++)
+        {
+            cout << "| " << this->table[i][j]->getTop() << " | ";
+        }
+        cout << endl;
+        for (int j = 0; j < int(this->table[i].size()); j++)
+        {
+            cout << "|" << this->table[i][j]->getLeft() << " " << this->table[i][j]->getRight() << "| ";
+        }
+        cout << endl;
+        for (int j = 0; j < int(this->table[i].size()); j++)
+        {
+            cout << "| " << this->table[i][j]->getBottom() << " | ";
+        }
+        cout << endl;
+        for (int j = 0; j < int(this->table[i].size()); j++)
+        {
+            cout << "+---+ ";
         }
         cout << endl;
     }
