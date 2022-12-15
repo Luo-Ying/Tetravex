@@ -65,6 +65,7 @@ bool playGame(int row, int col, vector<GameCard> cards, Tetravex tetravex)
     {
         for (int i = 0; i < int(cards.size()); i++)
         {
+            // cout << "row: " << row << " col: " << col << endl;
             if (tetravex.putCard(&cards[i], row, col))
             {
                 if (col < tetravex.getGameTable().getWidth() - 1)

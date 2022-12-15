@@ -18,37 +18,37 @@ bool Tetravex::putCard(GameCard *card, int row, int column)
     }
     else
     {
-        if (this->gameTable.isCaseAvaileble(row, column))
-        {
+        // if (this->gameTable.isCaseAvaileble(row, column))
+        // {
             if (!this->gameTable.isMatchWithTop(card, row, column))
             {
                 return false;
             }
-            else if (!this->gameTable.isMatchWithBottom(card, row, column))
+            // else if (!this->gameTable.isMatchWithBottom(card, row, column))
+            // {
+            //     return false;
+            // }
+            if (!this->gameTable.isMatchWithLeft(card, row, column))
             {
                 return false;
             }
-            else if (!this->gameTable.isMatchWithLeft(card, row, column))
-            {
-                return false;
-            }
-            else if (!this->gameTable.isMatchWithRight(card, row, column))
-            {
-                return false;
-            }
-            else
-            {
+            // else if (!this->gameTable.isMatchWithRight(card, row, column))
+            // {
+            //     return false;
+            // }
+            // else
+            // {
                 this->gameTable.putCard(card, row, column);
                 card->setIsUsed(true);
                 return true;
-            }
-        }
-        else
-        {
-            cout << "row: " << row << " col: " << column << endl;
-            cout << "position not available! " << endl;
-            return false;
-        }
+            // }
+        // }
+        // else
+        // {
+        //     cout << "row: " << row << " col: " << column << endl;
+        //     cout << "position not available! " << endl;
+        //     return false;
+        // }
     }
 }
 
