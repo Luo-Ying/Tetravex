@@ -177,7 +177,7 @@ int main()
 
     auto duration = duration_cast<microseconds>(stop - start);
 
-    cout << "Le temps pris par la fonction: " << duration.count() / 1000000 << " secondes" << endl;
+    cout << "Le temps pris par la fonction: " << (double)duration.count() / (double)1000000 << " secondes" << endl;
 
     return 0;
 }

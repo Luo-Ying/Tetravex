@@ -3,7 +3,7 @@
 Tetravex tetravex;
 vector<GameCard> cards;
 
-bool *isFinished = new bool;
+// bool *isFinished = new bool;
 
 int width, height;
 
@@ -62,15 +62,27 @@ vector<vector<int>> readFile()
 
 bool playGame(int row, int col)
 {
-    if (!*isFinished)
+    for (int i = 0; i < int(cards.size()); i++)
     {
-        for (int i = 0; i < int(cards.size()); i++)
+        if (tetravex.putCard(&cards[i], row, col))
         {
-            if (tetravex.putCard(&cards[i], row, col))
+            if (col < width - 1)
             {
-                if (col < width - 1)
+                bool isPlaced = playGame(row, col + 1);
+                if (!isPlaced)
                 {
-                    bool isPlaced = playGame(row, col + 1);
+                    tetravex.removeCard(row, col);
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            else
+            {
+                if (row < height - 1)
+                {
+                    bool isPlaced = playGame(row + 1, 0);
                     if (!isPlaced)
                     {
                         tetravex.removeCard(row, col);
@@ -82,36 +94,17 @@ bool playGame(int row, int col)
                 }
                 else
                 {
-                    if (row < height - 1)
-                    {
-                        bool isPlaced = playGame(row + 1, 0);
-                        if (!isPlaced)
-                        {
-                            tetravex.removeCard(row, col);
-                        }
-                        else
-                        {
-                            return true;
-                        }
-                    }
-                    else
-                    {
-                        return true;
-                    }
+                    return true;
                 }
             }
         }
-        return false;
     }
-    else
-    {
-        return false;
-    }
+    return false;
 }
 
 int main()
 {
-    *isFinished = false;
+    // *isFinished = false;
 
     vector<vector<int>> data = readFile();
 
